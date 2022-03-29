@@ -10,7 +10,7 @@ function MyNavbar(){
       <Navbar bg="light" fixed='top'>
         <Container fluid>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Brand href='#'>ToDo Bitch</Navbar.Brand>
+            <Navbar.Brand href='#'>ToDo</Navbar.Brand>
 
             <FormGroup>
               <Form.Control placeholder='Search'></Form.Control>
