@@ -6,9 +6,15 @@ import Col from 'react-bootstrap/Col';
 import MyNavbar from './components/MyNavbar';
 import FiltersSidebar from './components/FiltersSidebar';
 import TaskList from './components/TaskList';
+import TASKS from './tasks';
+import { useState } from 'react';
 
 
 function App() {
+
+  // const [taskList, setTaskList] = useState(TASKS);
+
+
   return (
      <Container fluid>
       <MyNavbar />
@@ -17,7 +23,7 @@ function App() {
             <FiltersSidebar className='below-nav'/>
           </Col>
           <Col className='below-nav'>
-            <TaskList />
+            <TaskList tasks={TASKS}/>
           </Col>
         </Row>
 
