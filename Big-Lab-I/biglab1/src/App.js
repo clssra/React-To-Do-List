@@ -10,13 +10,13 @@ import TaskList from './components/TaskList';
 
 function App() {
   return (
-     <Container class='container-fluid'>
+     <Container fluid>
       <MyNavbar />
-        <Row className='vheight-100 below-nav'>
-          <Col sm={4} className='bg-light'>
-            <FiltersSidebar />
+        <Row className='vheight-100 '>
+          <Col sm={4} className='filters-sidebar below-nav bg-light'>
+            <FiltersSidebar className='below-nav'/>
           </Col>
-          <Col>
+          <Col className='below-nav'>
             <TaskList />
           </Col>
         </Row>

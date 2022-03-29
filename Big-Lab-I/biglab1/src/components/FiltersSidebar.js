@@ -1,9 +1,4 @@
-import Container from 'react-bootstrap/esm/Container';
-import Row from 'react-bootstrap/esm/Row';
 import ListGroup from 'react-bootstrap/ListGroup';
-import Col from 'react-bootstrap/Col';
-
-
 function FiltersSidebar(){
 
     return (

@@ -8,8 +8,8 @@ import Button from 'react-bootstrap/Button'
 
 function TaskList(){
     return(
-        <Container fluid >
-            <h1>ALL</h1>
+        <Container fluid>
+            <h1>FILTER: filter-all</h1>
                     <Row className='justify-content-between task'>
                         <Col>
                         <Form>
@@ -55,6 +55,9 @@ function TaskList(){
                                 <Form.Check type='checkbox' id='btncheck3' label='Read a good book!' className='important'>
                                 </Form.Check>
                             </Form>
+                        </Col>
+                        <Col sm={4} md='center'>
+                            <small>--o--</small>
                         </Col>
                         <Col sm={1}>
                             <PencilSquare size='15' />
