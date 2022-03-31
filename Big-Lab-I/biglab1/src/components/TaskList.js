@@ -4,14 +4,11 @@ import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import { PencilSquare, TrashFill, PersonSquare, PlusCircleFill } from 'react-bootstrap-icons';
-import Button from 'react-bootstrap/Button';
-import { useContext, useState } from 'react';
 import dayjs from 'dayjs';
 import isYesterday from 'dayjs/plugin/isYesterday';
 import isTomorrow from 'dayjs/plugin/isTomorrow';
 import isToday from 'dayjs/plugin/isToday';
 import isBetween from 'dayjs/plugin/isBetween';
-import { PD, Tasks } from './CreateContext';
 
 dayjs.extend(isYesterday).extend(isToday).extend(isTomorrow).extend(isBetween);
 
@@ -23,6 +20,7 @@ dayjs.extend(isYesterday).extend(isToday).extend(isTomorrow).extend(isBetween);
 */
 
 const formatDeadline = (d) => {
+    
     if (!d) return '--o--';
     else if (d.isToday()) {
       return d.format('[Today at] HH:mm');
@@ -40,8 +38,8 @@ const formatDeadline = (d) => {
 
 function TaskList(props){
 
-    const tasks = useContext(Tasks);
-   
+    const tasks = props.tasks;
+
     return(
         <Container fluid>
 
@@ -65,7 +63,7 @@ function TaskRow(props){
 }
 
 function TaskInfo(props){
-
+    
     const { task } = props;
 
     return(

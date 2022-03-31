@@ -1,18 +1,20 @@
 import ListGroup from 'react-bootstrap/ListGroup';
 
 function FiltersSidebar(props){
-    
+    const filters = props.filters;
+    const selectedKey = props.selectedKey;
+    const setSelectedKey = props.setSelectedKey;
 
     return (
-                <ListGroup as='ul' defaultActiveKey="#link1" variant='flush'>
-                    <ListGroup.Item as='li' action href='#link1' key={'all-filter'}
-                        >ALL</ListGroup.Item>
-                    <ListGroup.Item as='li' action href='#link2'>IMPORTANT</ListGroup.Item>
-                    <ListGroup.Item as='li' action href='#link3'>TODAY</ListGroup.Item>
-                    <ListGroup.Item as='li' action href='#link4'>NEXT 7 DAYS</ListGroup.Item>
-                    <ListGroup.Item as='li' action href='#link5'>PRIVATE</ListGroup.Item>
-                </ListGroup>
-            
+        <ListGroup defaultActiveKey={selectedKey}>
+            {
+                Object.entries(filters).map(([key, {description}]) => {
+
+                        return (<ListGroup.Item key={key} action active={key === selectedKey}
+                            onClick={() => setSelectedKey(key)}>{description}</ListGroup.Item>);
+                })
+            }
+        </ListGroup>  
     );
 }
 

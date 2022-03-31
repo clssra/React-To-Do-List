@@ -1,6 +1,13 @@
 import React from "react";
 
-const Tasks = React.createContext();
-const Filters = React.createContext();
+const Tasks = React.createContext({
+    tasks : {},
+    setTasks : () => {}
+});
 
-export {Tasks, Filters};
+const SelectedKey = React.createContext({
+    selectedKey : '',
+    setSelectedKey : () => {}
+});
+
+export {Tasks, SelectedKey};
