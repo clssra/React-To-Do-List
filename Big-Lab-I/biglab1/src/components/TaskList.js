@@ -14,13 +14,12 @@ dayjs.extend(isYesterday).extend(isToday).extend(isTomorrow).extend(isBetween);
 
 /* TASKLIST
 
- { id: 1, description: "Complete BigLab 1C", important: false, private: true, deadline: dayjs("2021-04-26T14:30:00") },
+ { id - description - important - private - deadline }
 
-    id - description - important - private - deadline
 */
 
 const formatDeadline = (d) => {
-    
+
     if (!d) return '--o--';
     else if (d.isToday()) {
       return d.format('[Today at] HH:mm');
@@ -33,9 +32,6 @@ const formatDeadline = (d) => {
     }
 }
 
-
-//passo i task già filtrati a TaskList
-
 function TaskList(props){
 
     const tasks = props.tasks;
@@ -45,7 +41,7 @@ function TaskList(props){
 
             {tasks.map(task => <TaskRow key={task.id} task={task}/>)}
                    
-            <PlusCircleFill size={30} className='addButton'/>
+            {/* <PlusCircleFill size={30} className='addButton'/> */}
                      
         </Container>
     );

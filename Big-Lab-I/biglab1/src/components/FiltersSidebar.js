@@ -1,9 +1,11 @@
 import ListGroup from 'react-bootstrap/ListGroup';
 
 function FiltersSidebar(props){
-    const filters = props.filters;
-    const selectedKey = props.selectedKey;
-    const setSelectedKey = props.setSelectedKey;
+    // const filters = props.filters;
+    // const selectedKey = props.selectedKey;
+    // const setSelectedKey = props.setSelectedKey;
+
+    const {filters, selectedKey, setSelectedKey} = props;
 
     return (
         <ListGroup defaultActiveKey={selectedKey}>
