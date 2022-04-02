@@ -8,13 +8,16 @@ function ModalForm(props){
     let onSave = props.onSave;
     const onClose = props.onClose;
 
-    const [description, setDescription] = useState(task ? task.description : '');
-    const [isPrivate, setIsPrivate] = useState(task ? task.private : false);
-    const [isImportant, setIsImportant] = useState(task ? task.important : false);
-    const [deadlineDate, setDeadlineDate] = useState((task && task.deadline) ? task.deadline.format('YYYY-MM-DD') : '');
-    const [deadlineTime, setDeadlineTime] = useState((task && task.deadline) ? task.deadline.format('HH:mm') : '');
+    const [description, setDescription] = useState('');
+    const [isPrivate, setIsPrivate] = useState(false);
+    const [isImportant, setIsImportant] = useState(false);
+    const [deadlineDate, setDeadlineDate] = useState('');
+    const [deadlineTime, setDeadlineTime] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const [validated, setValidated] = useState();
+   // console.log(description);
+
+    const [validated, setValidated] = useState(false);
 
     const handleDeadlineDate = (event) => {
         setDeadlineDate(event.target.value);
@@ -38,8 +41,10 @@ function ModalForm(props){
     const handleSubmit = (event) => {
         event.preventDefault();
         event.stopPropagation(); 
-    
+
         const form = event.currentTarget; 
+        console.log(form);
+
         if (!form.checkValidity()) {
           setValidated(true);
         } else {
@@ -53,6 +58,8 @@ function ModalForm(props){
             const newTask = Object.assign({}, task, {description, important: isImportant, 
                                 private: isPrivate, deadline });
 
+            //console.log(task);
+
             onSave(newTask);
 
         }
@@ -60,24 +67,29 @@ function ModalForm(props){
 
 
     return(
-        <Modal {...props} show centered size='md' onHide={onClose}>
+        <Modal show centered size='md' onHide={onClose}>
             <Modal.Header closeButton>
                 <Modal.Title>Add new task!</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-                <Form noValidate validated={validated} onSubmit={handleSubmit}>  
-                    <Form.Group>
-                        <Form.Label htmlFor='taskDescription'>Task description</Form.Label>
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <Modal.Body>
+                    <Form.Group controlId='form-description'>
+                        <Form.Label>Task description</Form.Label>
                         <Form.Control 
+                            required
                             value={description} 
                             onChange={(event)=> setDescription(event.target.value)}
                             type='text'
-                            id='taskDescription'
+                            name='description'
                             placeholder="ex. buy a beer"
+                            
                         >
                         </Form.Control>
+                        <Form.Control.Feedback type="invalid">
+                            Please provide a description.
+                        </Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group id='checkboxes'>
+                    <Form.Group controlId='checkboxes'>
                         <Form.Check
                             checked={isPrivate}
                             onChange={(event) => setIsPrivate(event.target.value)}
@@ -87,7 +99,7 @@ function ModalForm(props){
                             id='privateCheck'
                         />
                         <Form.Check
-                            checked={isPrivate}
+                            checked={isImportant}
                             onChange={(event) => setIsImportant(event.target.value)}
                             inline
                             label='important'
@@ -95,7 +107,7 @@ function ModalForm(props){
                             id='importantCheck'
                         />
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group controlId='deadline-date'>
                         <Form.Label>Deadline date</Form.Label>
                         <Form.Control
                             type='date'
@@ -103,8 +115,8 @@ function ModalForm(props){
                             onChange={handleDeadlineDate}
                         />
                     </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Deadline date</Form.Label>
+                    <Form.Group controlId='deadline-time'>
+                        <Form.Label>Deadline time</Form.Label>
                         <Form.Control
                             type='time'
                             value={deadlineTime}
@@ -112,13 +124,13 @@ function ModalForm(props){
                         />
                     </Form.Group>
 
-                </Form>
+
             </Modal.Body>
             <Modal.Footer>
-                {/* <Button onClick={onClose}>Close</Button> */}
-                <Button type='submit'>Submit</Button>
+                <Button onClick={onClose}>Close</Button>
+                <Button type='submit'>Save</Button>
             </Modal.Footer>
-
+        </Form>
         </Modal>
     );
 
