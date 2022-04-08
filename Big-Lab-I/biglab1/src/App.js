@@ -44,12 +44,6 @@ function App() {
     setTasks((oldTasks) => [...oldTasks, { ...task, id: id }] );
   }
 
-  // const addTask = (task) => {
-  //   const id = Math.max(...tasks.map(t => t.id)) + 1;
-  //   setTasks((oldTasks) => [...oldTasks, {...task, id: id}]);
-
-  // }
-
   const handleSaveOrUpdate = (task) => {
     // if the task has an id it is an update
     if(task.id) updateTask(task); 

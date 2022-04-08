@@ -15,8 +15,6 @@ function ModalForm(props){
     const [deadlineTime, setDeadlineTime] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-   // console.log(description);
-
     const [validated, setValidated] = useState(false);
 
     const handleDeadlineDate = (event) => {
@@ -57,8 +55,6 @@ function ModalForm(props){
 
             const newTask = Object.assign({}, task, {description, important: isImportant, 
                                 private: isPrivate, deadline });
-
-            //console.log(task);
 
             onSave(newTask);
 
