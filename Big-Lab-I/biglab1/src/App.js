@@ -7,28 +7,70 @@ import MyNavbar from './components/MyNavbar';
 import FiltersSidebar from './components/FiltersSidebar';
 import TaskList from './components/TaskList';
 import TASKS from './tasks';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import {SelectedKey, Tasks } from './components/CreateContext';
+import dayjs from 'dayjs';
+import isYesterday from 'dayjs/plugin/isYesterday';
+import isTomorrow from 'dayjs/plugin/isTomorrow';
+import isToday from 'dayjs/plugin/isToday';
+import isBetween from 'dayjs/plugin/isBetween';
+
+dayjs.extend(isYesterday).extend(isToday).extend(isTomorrow).extend(isBetween);
 
 
 function App() {
 
-  // const [taskList, setTaskList] = useState(TASKS);
-
+  const [selectedKey, setSelectedKey] = useState('all');
+  const [tasks, setTasks] = useState(TASKS);
 
   return (
      <Container fluid>
       <MyNavbar />
         <Row className='vheight-100 '>
-          <Col sm={4} className='filters-sidebar below-nav bg-light'>
-            <FiltersSidebar className='below-nav'/>
-          </Col>
-          <Col className='below-nav'>
-            <TaskList tasks={TASKS}/>
-          </Col>
+              <TaskManager tasks={tasks} setTasks={setTasks} selectedKey={selectedKey} setSelectedKey={setSelectedKey}/>
         </Row>
-
      </Container>
   );
+}
+
+function TaskManager(props){
+
+  const tasks = props.tasks;
+  const selectedKey = props.selectedKey;
+  const setSelectedKey = props.setSelectedKey;
+
+  const isNextWeek = (t) => {
+    const tomorrow = dayjs().add(1, 'day');
+    const nextWeek = dayjs().add(7, 'day');
+    
+    return t.deadline && t.deadline.isBetween(tomorrow, nextWeek, 'day', '[]');
+  }
+
+  const filtersList = {
+    'all' : {description: 'ALL', id : 'all', filterFn : () => true},
+    'important' : {description: 'IMPORTANT', id : 'important', filterFn : t => t.important},
+    'today' : {description: 'TODAY', id : 'today',  filterFn : t => t.deadline && t.deadline.isToday()},
+    'next7' : { description: 'NEXT WEEK', id : 'next7',  filterFn : t => isNextWeek(t)},
+    'private' : {description: 'PRIVATE', id : 'private',  filterFn : t => t.private}
+  }
+
+    return (
+      <>
+        <Col sm={4} className='filters-sidebar below-nav bg-light'>
+          <FiltersSidebar className='below-nav' filters={filtersList} selectedKey={selectedKey} setSelectedKey={setSelectedKey}/>
+        </Col>
+        <Col className='below-nav'>
+          <Title filterName={filtersList[selectedKey].description}/>
+          <TaskList tasks={tasks.filter(filtersList[selectedKey].filterFn)}/>
+        </Col>
+      </>
+    )
+}
+
+function Title(props){
+  const filterName = props.filterName;
+
+  return <h1>Filter: {filterName}</h1>;
 }
 
 export default App;

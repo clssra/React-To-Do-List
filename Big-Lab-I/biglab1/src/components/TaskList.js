@@ -4,14 +4,13 @@ import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import { PencilSquare, TrashFill, PersonSquare, PlusCircleFill } from 'react-bootstrap-icons';
-import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
 import dayjs from 'dayjs';
 import isYesterday from 'dayjs/plugin/isYesterday';
 import isTomorrow from 'dayjs/plugin/isTomorrow';
 import isToday from 'dayjs/plugin/isToday';
+import isBetween from 'dayjs/plugin/isBetween';
 
-dayjs.extend(isYesterday).extend(isToday).extend(isTomorrow);
+dayjs.extend(isYesterday).extend(isToday).extend(isTomorrow).extend(isBetween);
 
 /* TASKLIST
 
@@ -21,6 +20,7 @@ dayjs.extend(isYesterday).extend(isToday).extend(isTomorrow);
 */
 
 const formatDeadline = (d) => {
+    
     if (!d) return '--o--';
     else if (d.isToday()) {
       return d.format('[Today at] HH:mm');
@@ -31,21 +31,21 @@ const formatDeadline = (d) => {
     } else {
       return d.format('dddd DD MMMM YYYY [at] HH:mm');
     }
-  }
+}
 
+
+//passo i task già filtrati a TaskList
 
 function TaskList(props){
 
-    const [tasks, setTasks] = useState(props.tasks);
-    tasks.forEach(t => console.log(t));
-   
+    const tasks = props.tasks;
+
     return(
         <Container fluid>
-            <h1>FILTER: filter-all</h1>
-                
+
             {tasks.map(task => <TaskRow key={task.id} task={task}/>)}
                    
-            <PlusCircleFill size={30} className='addButton' />
+            <PlusCircleFill size={30} className='addButton'/>
                      
         </Container>
     );
@@ -63,7 +63,7 @@ function TaskRow(props){
 }
 
 function TaskInfo(props){
-
+    
     const { task } = props;
 
     return(
