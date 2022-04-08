@@ -1,19 +1,19 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import Container from 'react-bootstrap/Container';
+import {Container, Button} from 'react-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import MyNavbar from './components/MyNavbar';
 import FiltersSidebar from './components/FiltersSidebar';
 import TaskList from './components/TaskList';
 import TASKS from './tasks';
-import { useContext, useState } from 'react';
-import {SelectedKey, Tasks } from './components/CreateContext';
+import { useState } from 'react';
 import dayjs from 'dayjs';
 import isYesterday from 'dayjs/plugin/isYesterday';
 import isTomorrow from 'dayjs/plugin/isTomorrow';
 import isToday from 'dayjs/plugin/isToday';
 import isBetween from 'dayjs/plugin/isBetween';
+import { ModalForm } from './components/ModalForm';
 
 dayjs.extend(isYesterday).extend(isToday).extend(isTomorrow).extend(isBetween);
 
@@ -23,11 +23,56 @@ function App() {
   const [selectedKey, setSelectedKey] = useState('all');
   const [tasks, setTasks] = useState(TASKS);
 
+  const MODAL = {CLOSED : -2, ADD : -1};
+
+  const [selectedTask, setSelectedTask] = useState(MODAL.CLOSED);
+
+  function findTask(id){
+    return tasks.filter(t => t.id === id);
+  }
+
+  // const updateTask = (task) => {
+  //   setTasks((oldTasks) => oldTasks.map(t => t.id === task.id ? {...task} : t))
+  // }
+
+  const updateTask = (task) => {
+    setTasks( oldTasks => oldTasks.map( t => t.id === task.id ? {...task} : t) );
+  }
+
+  const addTask = (task) => {
+    const id = Math.max(...tasks.map( t => t.id )) + 1;
+    setTasks((oldTasks) => [...oldTasks, { ...task, id: id }] );
+  }
+
+  const handleSaveOrUpdate = (task) => {
+    // if the task has an id it is an update
+    if(task.id) updateTask(task); 
+    // otherwise it is a new task to add
+    else addTask(task);
+
+    setSelectedTask(MODAL.CLOSED); 
+  }
+
+  function handleClose(){
+    setSelectedTask(MODAL.CLOSED);
+  }
+
+  console.log(findTask(selectedTask));
+
+
   return (
      <Container fluid>
       <MyNavbar />
         <Row className='vheight-100 '>
               <TaskManager tasks={tasks} setTasks={setTasks} selectedKey={selectedKey} setSelectedKey={setSelectedKey}/>
+              <Row>
+                <Col>
+              <Button size="lg" className="fixed-right-bottom" onClick={() => setSelectedTask(MODAL.ADD)}>+</Button>
+              {/* <ModalForm onClose={handleClose}/> */}
+              </Col>
+              </Row>
+              {(selectedTask !== MODAL.CLOSED) && <ModalForm task={findTask(selectedTask)} onSave={handleSaveOrUpdate} onClose={handleClose}></ModalForm>}
+              
         </Row>
      </Container>
   );
