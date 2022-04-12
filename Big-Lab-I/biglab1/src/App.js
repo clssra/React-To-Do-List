@@ -103,7 +103,7 @@ function App() {
 }
 
 function TaskManager(props){
-  
+
   const {tasks, onEdit} = props;
 
   const params = useParams();
@@ -155,6 +155,6 @@ function Title(props){
   const filterName = props.filterName;
 
   return <h1>Filter: <small id='filterName'>{filterName}</small></h1>;
-}
 
+}
 export default App;

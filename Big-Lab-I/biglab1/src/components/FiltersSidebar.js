@@ -7,7 +7,6 @@ function FiltersSidebar(props){
         <ListGroup defaultActiveKey={selectedKey}>
             {
                 Object.entries(filters).map(([key, {description}]) => {
-
                         return (<ListGroup.Item key={key} action active={key === selectedKey}
                             onClick={() => onSelection(key)}>{description}</ListGroup.Item>);
                 })

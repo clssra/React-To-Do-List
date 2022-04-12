@@ -23,7 +23,6 @@ const formatDeadline = (d) => {
 }
 
 function TaskList(props){
-
     const {tasks, onDelete, onEdit} = props;
 
     return(
@@ -57,7 +56,7 @@ function TaskRow(props){
 }
 
 function TaskInfo(props){
-    
+
     const task = props.task;
 
     return(
