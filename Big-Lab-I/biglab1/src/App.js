@@ -93,8 +93,10 @@ function App() {
                 </>
                 }>
               </Route>
-              <Route element={<Navigate to='/list/all' replace/>}>
-              </Route>
+              <Route
+                  path="*"
+                  element={<Navigate to="/list/all" replace />}
+              />
             </Routes>
           </Row>
       </Container>
