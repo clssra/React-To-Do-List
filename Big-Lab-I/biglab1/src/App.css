@@ -24,6 +24,10 @@ color: red;
 padding-top: 1rem;
 }
 
+#filterName{
+  color: grey;
+}
+
 .add-button{
 color: red;
 position: absolute;

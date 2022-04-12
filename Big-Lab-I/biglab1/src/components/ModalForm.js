@@ -3,10 +3,6 @@ import { useState } from 'react';
 import {Modal, Form, Button} from 'react-bootstrap/';
 
 function ModalForm(props){
-    // const {task, onSave, onClose} = props;
-    // const task = props.task;
-    // let onSave = props.onSave;
-    // const onClose = props.onClose;
     const {task, onSave, onClose} = props;
 
     const [description, setDescription] = useState(task ? task.description : '');
@@ -56,9 +52,8 @@ function ModalForm(props){
                                 private: isPrivate, deadline });
 
             onSave(newTask);
-
         }
-      };
+    };
 
 
     return(

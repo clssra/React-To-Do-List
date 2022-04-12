@@ -1,5 +1,5 @@
 import { Button, Col, Form, Row, Container} from 'react-bootstrap';
-import { PencilSquare, TrashFill, PersonSquare, PlusCircleFill } from 'react-bootstrap-icons';
+import { PencilSquare, TrashFill, PersonSquare } from 'react-bootstrap-icons';
 import dayjs from 'dayjs';
 import isYesterday from 'dayjs/plugin/isYesterday';
 import isTomorrow from 'dayjs/plugin/isTomorrow';
@@ -7,10 +7,6 @@ import isToday from 'dayjs/plugin/isToday';
 import isBetween from 'dayjs/plugin/isBetween';
 
 dayjs.extend(isYesterday).extend(isToday).extend(isTomorrow).extend(isBetween);
-
-/* TASKLIST
- { id - description - important - private - deadline }
-*/
 
 const formatDeadline = (d) => {
 
@@ -28,32 +24,23 @@ const formatDeadline = (d) => {
 
 function TaskList(props){
 
-    // const tasks = props.tasks;
-    // const deleteTask = props.deleteTask;
-
-    const {tasks, deleteTask, updateTask, onEdit} = props;
-
+    const {tasks, onDelete, onEdit} = props;
 
     return(
         <Container fluid>
-
             {tasks.map(task => 
                 <TaskRow 
                     key={task.id} 
                     task={task} 
-                    deleteTask={deleteTask} 
-                    updateTask={updateTask}
+                    onDelete={onDelete} 
                     onEdit = {onEdit}
-                    />)}
-                   
-            {/* <PlusCircleFill size={30} className='addButton'/> */}
-                     
+                />)
+            }
         </Container>
     );
 }
 
 function TaskRow(props){
-
 
     return(
         <Row className='justify-content-between task'>
@@ -61,8 +48,7 @@ function TaskRow(props){
                 task={props.task}/>
             <TaskControl 
                 task={props.task} 
-                deleteTask={props.deleteTask} 
-                updateTask={props.updateTask}
+                onDelete={props.onDelete} 
                 onEdit = {props.onEdit}
                 />
         </Row>
@@ -105,7 +91,7 @@ function TaskControl(props){
                     }}><PencilSquare size='15' /></Button>
             </Col>
             <Col sm={1}>
-                <Button onClick={() => props.deleteTask(props.task)}><TrashFill size='15' /></Button>
+                <Button onClick={() => props.onDelete(props.task)}><TrashFill size='15' /></Button>
             </Col>
         </>
     );
