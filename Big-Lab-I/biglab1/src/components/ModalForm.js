@@ -3,17 +3,13 @@ import { useState } from 'react';
 import {Modal, Form, Button} from 'react-bootstrap/';
 
 function ModalForm(props){
-    // const {task, onSave, onClose} = props;
-    const task = props.task;
-    let onSave = props.onSave;
-    const onClose = props.onClose;
+    const {task, onSave, onClose} = props;
 
-    const [description, setDescription] = useState('');
-    const [isPrivate, setIsPrivate] = useState(false);
-    const [isImportant, setIsImportant] = useState(false);
-    const [deadlineDate, setDeadlineDate] = useState('');
-    const [deadlineTime, setDeadlineTime] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+    const [description, setDescription] = useState(task ? task.description : '');
+    const [isPrivate, setIsPrivate] = useState(task ? task.important : false);
+    const [isImportant, setIsImportant] = useState(task ? task.private : true);
+    const [deadlineDate, setDeadlineDate] = useState( (task && task.deadline) ? task.deadline.format('YYYY-MM-DD') : '');
+    const [deadlineTime, setDeadlineTime] = useState( (task && task.deadline) ? task.deadline.format('HH:mm') : '');
 
     const [validated, setValidated] = useState(false);
 
@@ -41,7 +37,6 @@ function ModalForm(props){
         event.stopPropagation(); 
 
         const form = event.currentTarget; 
-        console.log(form);
 
         if (!form.checkValidity()) {
           setValidated(true);
@@ -57,9 +52,8 @@ function ModalForm(props){
                                 private: isPrivate, deadline });
 
             onSave(newTask);
-
         }
-      };
+    };
 
 
     return(
