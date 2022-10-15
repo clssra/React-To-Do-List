@@ -1,8 +1,8 @@
-**Big Lab I**
+#Big Lab I
 
 Four weeks of the first BigLab -> developed the front-end for a web-based task manager using React. 
 
-Four weeks plan:
+##Four weeks plan:
 
 a) First week: started setting up the front-end for the task manager using the React-enabled version of Bootstrap. static page, not implemented any user action.
 
