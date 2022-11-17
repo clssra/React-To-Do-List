@@ -1,11 +1,20 @@
 .vheight-100{
-  min-height: 100vh;
+  min-height: 150vh;
 }
 
 .below-nav{
 padding-top: 5rem;
 
 }
+
+#navbar-brand {
+  color: white;
+}
+
+#person-circle {
+  color: white;
+}
+
 
 #checkboxes{
 padding: 1rem;
@@ -27,6 +36,12 @@ padding-top: 1rem;
 
 #filterName{
   color: grey;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: black;
+  border-color: black;
 }
 
 .add-button{

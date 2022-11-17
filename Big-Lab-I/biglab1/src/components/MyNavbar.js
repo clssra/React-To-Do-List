@@ -7,10 +7,10 @@ import FormGroup from 'react-bootstrap/esm/FormGroup';
 
 function MyNavbar(){
     return (
-      <Navbar bg="light" fixed='top'>
+      <Navbar bg="dark" fixed='top'>
         <Container fluid>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Brand href='#'>ToDo</Navbar.Brand>
+            <Navbar.Brand href='#' id='navbar-brand'>ToDo</Navbar.Brand>
 
             <FormGroup>
               <Form.Control placeholder='Search'></Form.Control>
@@ -18,7 +18,7 @@ function MyNavbar(){
             
             <Nav className="ml-auto">
               <Nav.Item>
-                <Nav.Link href="#">
+                <Nav.Link href="#" id='person-circle'>
                   <PersonCircle size="30" />
                 </Nav.Link>
               </Nav.Item>
